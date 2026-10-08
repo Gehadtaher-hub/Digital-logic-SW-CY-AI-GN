@@ -42,29 +42,19 @@ h1{margin:0;font-size:clamp(20px,3vw,30px)}
 /* Assignments panel */
 .assignment-overlay{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:18px;background:#08243dcc;backdrop-filter:blur(5px)}
 .assignment-overlay.open{display:flex}
-.assignment-panel{width:min(1180px,98vw);height:min(850px,94vh);display:flex;flex-direction:column;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 70px #0008}
+.assignment-panel{width:min(720px,96vw);overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 70px #0008}
 .assignment-panel-header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;color:#fff;background:linear-gradient(110deg,#12395a,#1d6685)}
 .assignment-panel-header h2{margin:0;font-size:clamp(18px,3vw,25px)}
 .assignment-close{border:1px solid #a9dce8;border-radius:10px;padding:8px 12px;background:#fff;color:#12395a;font-weight:800;cursor:pointer}
-.assignment-note{margin:0;padding:10px 16px;background:#eef7fa;border-bottom:1px solid var(--line);font-size:14px}
-.assignment-frame{width:100%;flex:1;border:0;background:#fff}
-.assignment-fallback{padding:9px 15px;text-align:center;background:#f8fcfd;border-top:1px solid var(--line)}
-.assignment-fallback a{color:#12658a;font-weight:800}
-
-.assignment-content{display:flex;flex:1;min-height:0}
-.assignment-list{width:240px;padding:16px;background:#eef7fa;border-right:1px solid var(--line)}
-.assignment-list h3{margin:0 0 12px;color:#12395a}
-.assignment-item{width:100%;padding:13px 15px;border:1px solid #8bbdca;border-radius:10px;background:#fff;color:#12395a;font-weight:800;text-align:left;cursor:pointer}
-.assignment-item:hover,.assignment-item.active{background:#176784;color:#fff;border-color:#176784}
-.assignment-view{display:flex;flex:1;min-width:0;flex-direction:column}
-.assignment-placeholder{display:flex;flex:1;align-items:center;justify-content:center;padding:24px;text-align:center;color:#546772;background:#f9fcfd}
-.assignment-placeholder strong{display:block;margin-bottom:8px;color:#12395a;font-size:22px}
-.assignment-view .assignment-frame{display:none}
-.assignment-view.loaded .assignment-frame{display:block}
-.assignment-view.loaded .assignment-placeholder{display:none}
-
+.assignment-body{padding:22px;background:#f8fcfd}
+.assignment-note{margin:0 0 18px;padding:14px;background:#eef7fa;border:1px solid #cde4ea;border-radius:10px;line-height:1.6}
+.assignment-card{padding:20px;border:1px solid #cde4ea;border-radius:14px;background:#fff;text-align:center}
+.assignment-card h3{margin:0 0 8px;color:#12395a;font-size:23px}
+.assignment-card p{margin:0 0 18px;color:#536875}
+.assignment-start{display:inline-block;padding:14px 24px;border-radius:11px;background:#176784;color:#fff!important;font-weight:800;text-decoration:none;box-shadow:0 7px 16px #17678433}
+.assignment-start:hover{background:#104d65;transform:translateY(-1px)}
 body.assignment-open{overflow:hidden}
-@media(max-width:700px){.assignment-overlay{padding:0}.assignment-panel{width:100vw;height:100vh;border:0;border-radius:0}.assignment-content{flex-direction:column}.assignment-list{width:100%;padding:10px;border-right:0;border-bottom:1px solid var(--line)}.assignment-list h3{display:none}.assignment-item{text-align:center}.assignment-view{min-height:0}}
+@media(max-width:700px){.assignment-overlay{padding:12px}.assignment-body{padding:16px}.assignment-start{display:block;width:100%}}
 
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -107,72 +97,34 @@ body.assignment-open{overflow:hidden}
     <div id="book" class="flip-book"></div>
   </div>
 </main>
+
 <div id="assignmentOverlay" class="assignment-overlay" role="dialog" aria-modal="true" aria-labelledby="assignmentTitle" aria-hidden="true">
   <section class="assignment-panel">
     <div class="assignment-panel-header">
       <h2 id="assignmentTitle">📝 Course Assignments</h2>
-      <button id="closeAssignments" class="assignment-close" type="button" aria-label="Close assignments">✕ Close</button>
+      <button id="closeAssignments" class="assignment-close" type="button">✕ Close</button>
     </div>
-    <p class="assignment-note"><strong>Student instruction:</strong> When Wayground asks for your name, enter <strong>Student ID - Full Name</strong>, for example: <strong>20261234 - Ahmed Ali</strong>.</p>
-    <div class="assignment-content">
-      <aside class="assignment-list" aria-label="Assignment list">
-        <h3>Assignments</h3>
-        <button id="assignment1Btn" class="assignment-item" type="button">Assignment 1</button>
-      </aside>
-      <div id="assignmentView" class="assignment-view">
-        <div class="assignment-placeholder">
-          <div><strong>Select an assignment</strong>Click <b>Assignment 1</b> to open it here.</div>
-        </div>
-        <iframe id="waygroundFrame" class="assignment-frame" title="Wayground Assignment 1" allow="fullscreen" allowfullscreen loading="lazy"></iframe>
-      </div>
+    <div class="assignment-body">
+      <p class="assignment-note"><strong>Student instruction:</strong> When Wayground asks for your name, enter <strong>Student ID - Full Name</strong>, for example: <strong>20261234 - Ahmed Ali</strong>.</p>
+      <article class="assignment-card">
+        <h3>Assignment 1</h3>
+        <p>The assignment will open in a new tab so the name-entry screen works correctly.</p>
+        <a class="assignment-start" href="https://wayground.com/join?gc=40123485&amp;source=liveDashboard" target="_blank" rel="noopener noreferrer">Start Assignment 1 ↗</a>
+      </article>
     </div>
-    <div class="assignment-fallback">If the assignment does not appear, <a id="waygroundExternalLink" href="#" target="_blank" rel="noopener">open it in Wayground</a>.</div>
   </section>
 </div>
 <script>
 
-// Replace the value below with the exact Wayground embed or assignment link.
-const WAYGROUND_ASSIGNMENT_URL = 'https://wayground.com/join?gc=11131293&source=liveDashboard';
-const assignmentsBtn = document.getElementById('assignmentsBtn');
-const assignmentOverlay = document.getElementById('assignmentOverlay');
-const closeAssignmentsBtn = document.getElementById('closeAssignments');
-const waygroundFrame = document.getElementById('waygroundFrame');
-const assignment1Btn = document.getElementById('assignment1Btn');
-const assignmentView = document.getElementById('assignmentView');
-const waygroundExternalLink = document.getElementById('waygroundExternalLink');
-let assignmentPreviouslyFocused = null;
-
-function openAssignments(){
-  assignmentPreviouslyFocused = document.activeElement;
-  assignmentOverlay.classList.add('open');
-  assignmentOverlay.setAttribute('aria-hidden','false');
-  document.body.classList.add('assignment-open');
-  closeAssignmentsBtn.focus();
-}
-
-function closeAssignments(){
-  assignmentOverlay.classList.remove('open');
-  assignmentOverlay.setAttribute('aria-hidden','true');
-  document.body.classList.remove('assignment-open');
-  if(assignmentPreviouslyFocused) assignmentPreviouslyFocused.focus();
-}
-
-assignment1Btn.addEventListener('click',()=>{
-  if(WAYGROUND_ASSIGNMENT_URL.includes('PASTE_YOUR')){
-    alert('Add your Wayground embed link to WAYGROUND_ASSIGNMENT_URL inside index.html first.');
-    return;
-  }
-  waygroundFrame.src = WAYGROUND_ASSIGNMENT_URL;
-  waygroundExternalLink.href = WAYGROUND_ASSIGNMENT_URL;
-  assignmentView.classList.add('loaded');
-  assignment1Btn.classList.add('active');
-});
-
+const assignmentsBtn=document.getElementById('assignmentsBtn');
+const assignmentOverlay=document.getElementById('assignmentOverlay');
+const closeAssignmentsBtn=document.getElementById('closeAssignments');
+function openAssignments(){assignmentOverlay.classList.add('open');assignmentOverlay.setAttribute('aria-hidden','false');document.body.classList.add('assignment-open');closeAssignmentsBtn.focus()}
+function closeAssignments(){assignmentOverlay.classList.remove('open');assignmentOverlay.setAttribute('aria-hidden','true');document.body.classList.remove('assignment-open');assignmentsBtn.focus()}
 assignmentsBtn.addEventListener('click',openAssignments);
 closeAssignmentsBtn.addEventListener('click',closeAssignments);
-assignmentOverlay.addEventListener('click',event=>{if(event.target===assignmentOverlay)closeAssignments();});
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&assignmentOverlay.classList.contains('open'))closeAssignments();});
-
+assignmentOverlay.addEventListener('click',event=>{if(event.target===assignmentOverlay)closeAssignments()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&assignmentOverlay.classList.contains('open'))closeAssignments()});
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
 const params=new URLSearchParams(window.location.search);
