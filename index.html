@@ -42,19 +42,23 @@ h1{margin:0;font-size:clamp(20px,3vw,30px)}
 /* Assignments panel */
 .assignment-overlay{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:18px;background:#08243dcc;backdrop-filter:blur(5px)}
 .assignment-overlay.open{display:flex}
-.assignment-panel{width:min(720px,96vw);overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 70px #0008}
+.assignment-panel{width:min(1180px,96vw);height:min(860px,92vh);display:flex;flex-direction:column;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 70px #0008}
 .assignment-panel-header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;color:#fff;background:linear-gradient(110deg,#12395a,#1d6685)}
 .assignment-panel-header h2{margin:0;font-size:clamp(18px,3vw,25px)}
 .assignment-close{border:1px solid #a9dce8;border-radius:10px;padding:8px 12px;background:#fff;color:#12395a;font-weight:800;cursor:pointer}
-.assignment-body{padding:22px;background:#f8fcfd}
+.assignment-body{padding:18px;background:#f8fcfd;display:flex;flex-direction:column;flex:1;min-height:0}
 .assignment-note{margin:0 0 18px;padding:14px;background:#eef7fa;border:1px solid #cde4ea;border-radius:10px;line-height:1.6}
-.assignment-card{padding:20px;border:1px solid #cde4ea;border-radius:14px;background:#fff;text-align:center}
+.assignment-card{padding:16px;border:1px solid #cde4ea;border-radius:14px;background:#fff;text-align:center;display:flex;flex-direction:column;flex:1;min-height:0}
 .assignment-card h3{margin:0 0 8px;color:#12395a;font-size:23px}
 .assignment-card p{margin:0 0 18px;color:#536875}
 .assignment-start{display:inline-block;padding:14px 24px;border-radius:11px;background:#176784;color:#fff!important;font-weight:800;text-decoration:none;box-shadow:0 7px 16px #17678433}
 .assignment-start:hover{background:#104d65;transform:translateY(-1px)}
+.quiz-embed-wrap{position:relative;display:flex;flex:1;min-height:480px;overflow:hidden;border-radius:10px;background:#fff}
+.quiz-frame{width:100%;flex:1;min-height:480px;border:0;background:#fff}
+.quiz-code-mask{position:absolute;z-index:5;top:16px;right:14px;width:128px;height:48px;border-radius:10px;background:linear-gradient(135deg,#5b0834,#35031f);box-shadow:0 0 0 1px #ffffff22;pointer-events:none}
+.quiz-code-mask::after{content:'Quiz 1';position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.2px}
 body.assignment-open{overflow:hidden}
-@media(max-width:700px){.assignment-overlay{padding:12px}.assignment-body{padding:16px}.assignment-start{display:block;width:100%}}
+@media(max-width:700px){.assignment-overlay{padding:0}.assignment-panel{width:100vw;height:100vh;border:0;border-radius:0}.assignment-body{padding:10px}.assignment-note{display:none}.assignment-card{padding:8px}.assignment-card p{margin-bottom:8px}.quiz-embed-wrap,.quiz-frame{min-height:0}.assignment-start{display:block;width:100%}}
 
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -70,7 +74,7 @@ body.assignment-open{overflow:hidden}
     <a id="mainBookBtn" class="btn" href="./index.html">📘 Main Book</a>
     <a id="practicalBookBtn" class="btn" href="./index.html?book=practical">🧪 Practical Book</a>
     <a class="btn" href="studio.html">Interactive Activities</a>
-    <button id="assignmentsBtn" class="btn" type="button">📝 Assignments</button>
+    <button id="assignmentsBtn" class="btn" type="button">📝 Quizzes</button>
     <details class="lecture-menu">
       <summary class="btn">🎓 Lectures ▾</summary>
       <nav class="lecture-dropdown" aria-label="Lecture selection">
@@ -101,15 +105,15 @@ body.assignment-open{overflow:hidden}
 <div id="assignmentOverlay" class="assignment-overlay" role="dialog" aria-modal="true" aria-labelledby="assignmentTitle" aria-hidden="true">
   <section class="assignment-panel">
     <div class="assignment-panel-header">
-      <h2 id="assignmentTitle">📝 Course Assignments</h2>
+      <h2 id="assignmentTitle">📝 Quizzes</h2>
       <button id="closeAssignments" class="assignment-close" type="button">✕ Close</button>
     </div>
     <div class="assignment-body">
       <p class="assignment-note"><strong>Student instruction:</strong> When Wayground asks for your name, enter <strong>Student ID - Full Name</strong>, for example: <strong>20261234 - Ahmed Ali</strong>.</p>
       <article class="assignment-card">
-        <h3>Assignment 1</h3>
-        <p>The assignment will open in a new tab so the name-entry screen works correctly.</p>
-        <a class="assignment-start" href="https://wayground.com/join?gc=09581149&source=liveDashboard" target="_blank" rel="noopener noreferrer">Start Assignment 1 ↗</a>
+        <h3>Quiz 1</h3>
+        <p>Complete Quiz 1 below. Enter <strong>Student ID - Full Name</strong> when prompted.</p>
+        <div class="quiz-embed-wrap"><iframe class="quiz-frame" src="https://wayground.com/join?gc=09581149" title="Wayground Quiz 1" allow="fullscreen; autoplay; clipboard-read; clipboard-write" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe><div class="quiz-code-mask" aria-hidden="true"></div></div>
       </article>
     </div>
   </section>
